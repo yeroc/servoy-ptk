@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<project name="servoy-ptk" default="jar" basedir=".">
+
+  <property name="src" 		value="src"/>
+  <property name="build"  value="build"/>
+	<property name="dist"   value="dist"/>
+  
+  <property name="jar.file" value="${dist}/servoy-ptk.jar" />
+	
+  <property environment="env"/>
+  
+  <fileset id="servoy.libs" dir="${env.SERVOY_HOME}/application_server/lib">
+    <include name="j2db.jar"/>
+    <include name="j2dbdev.jar"/>
+    <include name="log4j.jar"/>
+  </fileset>
+  
+  <path id="compile.path">
+    <fileset refid="servoy.libs"/>
+  </path>
+  
+  <target name="setup">
+    <!-- get the current svn revision -->
+    <exec 
+  		logerror="true"
+  		outputproperty="build.current.revision" 
+    	executable="svnversion">
+      <arg line="-n -c"/>
+      <redirector>
+        <outputfilterchain>
+          <tokenfilter>
+            <replaceregex pattern="^[0-9]*:?" replace="" flags="g"/>
+          </tokenfilter>
+        </outputfilterchain>
+      </redirector>
+    </exec>
+
+  	<tstamp>
+      <format property="build.current.date" pattern="yyyy-MM-dd HH:mm:ss z" />
+    </tstamp>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+  	<delete dir="${dist}"/>
+  </target>
+
+  <target name="compile" depends="setup">
+    <mkdir dir="${build}/classes" />
+    <javac 
+    	srcdir="${src}"
+      destdir="${build}/classes"
+      source="1.5"
+      target="1.5" 
+      debug="on">
+      <classpath refid="compile.path"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+  	<mkdir dir="${dist}"/>
+    <jar destfile="${jar.file}">
+      <manifest>
+        <attribute name="Build-Creator" value="${user.name}"/>
+        <attribute name="Build-Date" value="${build.current.date}"/>
+      	<attribute name="Implementation-Title" value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Version" value="Build ${build.current.revision}"/>
+        <attribute name="Implementation-Vendor" value="Geekden.org"/>
+      </manifest>
+      <fileset dir="${build}/classes"/>
+    </jar>
+  </target>
+</project>
