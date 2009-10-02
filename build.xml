@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <project name="servoy-ptk" default="jar" basedir=".">
 
-  <property name="src" 		value="src"/>
-  <property name="build"  value="build"/>
-	<property name="dist"   value="dist"/>
+  <property name="src"      value="src"/>
+  <property name="build"    value="build"/>
+  <property name="dist"     value="dist"/>
   
   <property name="jar.file" value="${dist}/servoy-ptk.jar" />
-	
+  
   <property environment="env"/>
   
   <fileset id="servoy.libs" dir="${env.SERVOY_HOME}/application_server/lib">
@@ -22,9 +22,9 @@
   <target name="setup">
     <!-- get the current svn revision -->
     <exec 
-  		logerror="true"
-  		outputproperty="build.current.revision" 
-    	executable="svnversion">
+      logerror="true"
+      outputproperty="build.current.revision" 
+      executable="svnversion">
       <arg line="-n -c"/>
       <redirector>
         <outputfilterchain>
@@ -35,20 +35,20 @@
       </redirector>
     </exec>
 
-  	<tstamp>
+    <tstamp>
       <format property="build.current.date" pattern="yyyy-MM-dd HH:mm:ss z" />
     </tstamp>
   </target>
 
   <target name="clean">
     <delete dir="${build}"/>
-  	<delete dir="${dist}"/>
+    <delete dir="${dist}"/>
   </target>
 
   <target name="compile" depends="setup">
     <mkdir dir="${build}/classes" />
     <javac 
-    	srcdir="${src}"
+      srcdir="${src}"
       destdir="${build}/classes"
       source="1.5"
       target="1.5" 
@@ -58,12 +58,12 @@
   </target>
 
   <target name="jar" depends="compile">
-  	<mkdir dir="${dist}"/>
+    <mkdir dir="${dist}"/>
     <jar destfile="${jar.file}">
       <manifest>
         <attribute name="Build-Creator" value="${user.name}"/>
         <attribute name="Build-Date" value="${build.current.date}"/>
-      	<attribute name="Implementation-Title" value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Title" value="Servoy Plugin Toolkit"/>
         <attribute name="Implementation-Version" value="Build ${build.current.revision}"/>
         <attribute name="Implementation-Vendor" value="Geekden.org"/>
       </manifest>
