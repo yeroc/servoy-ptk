@@ -25,6 +25,8 @@ import javax.swing.ImageIcon;
 
 
 import com.servoy.j2db.plugins.IClientPlugin;
+import com.servoy.j2db.plugins.IClientPluginAccess;
+import com.servoy.j2db.plugins.PluginException;
 import com.servoy.j2db.preference.PreferencePanel;
 
 public abstract class AbstractClientPlugin extends AbstractPlugin implements IClientPlugin
@@ -41,16 +43,16 @@ public abstract class AbstractClientPlugin extends AbstractPlugin implements ICl
   public final String getName()
   { return name; }
   
+  public void initialize(IClientPluginAccess context) throws PluginException { }
+
   public Icon getImage()
   { 
     if (icon == null) icon = new ImageIcon(AbstractClientPlugin.class.getResource("plugin.png"));
     return icon; 
   }
-  
-  /** @deprecated No longer used according to the documentation **/
-  public final PreferencePanel[] getPreferencePanels()
-  { return null; }
 
   public void propertyChange(PropertyChangeEvent evt) { }
-
+  
+  /** @deprecated No longer used according to the documentation **/
+  public final PreferencePanel[] getPreferencePanels() { return null; }
 }
