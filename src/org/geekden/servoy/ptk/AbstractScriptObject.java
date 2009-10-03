@@ -23,7 +23,9 @@ import static org.geekden.servoy.ptk.MethodInfo.method;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -33,11 +35,13 @@ public abstract class AbstractScriptObject implements IScriptObject
 {
   private static final Logger log = Logger.getLogger(AbstractScriptObject.class);
   
-  private final Map<String, MethodInfo> methods = new HashMap<String, MethodInfo>();
-  private Class<? extends IScriptObject>[] types = null;
+  private final Map<String, MethodInfo> methods = 
+    new HashMap<String, MethodInfo>();
+  private final Set<Class<? extends IScriptObject>> types = 
+    new HashSet<Class<? extends IScriptObject>>();
 
-  public Class<? extends IScriptObject>[] getAllReturnedTypes()
-  { return types; }
+  public Class<?>[] getAllReturnedTypes()
+  { return types.toArray(new Class[types.size()]); }
 
   public final String[] getParameterNames(String method)
   { return lookup(method).parameters(); }
@@ -63,8 +67,8 @@ public abstract class AbstractScriptObject implements IScriptObject
   protected void register(MethodInfo m)
   { methods.put(m.name(), m); }
   
-  protected void register(Class<? extends IScriptObject>... clazzes)
-  { types = clazzes; }
+  protected void register(Class<? extends IScriptObject> clazz)
+  { types.add(clazz); }
   
   private MethodInfo lookup(String method)
   {
