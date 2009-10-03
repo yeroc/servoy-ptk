@@ -21,8 +21,6 @@ package org.geekden.servoy.ptk;
 import java.beans.PropertyChangeEvent;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 
 import com.servoy.j2db.plugins.IClientPlugin;
 import com.servoy.j2db.plugins.IClientPluginAccess;
@@ -32,7 +30,6 @@ import com.servoy.j2db.preference.PreferencePanel;
 public abstract class AbstractClientPlugin extends AbstractPlugin implements IClientPlugin
 {
   private final String name;
-  private Icon icon;
   
   protected AbstractClientPlugin(String name, String displayName)
   { 
@@ -46,10 +43,7 @@ public abstract class AbstractClientPlugin extends AbstractPlugin implements ICl
   public void initialize(IClientPluginAccess context) throws PluginException { }
 
   public Icon getImage()
-  { 
-    if (icon == null) icon = new ImageIcon(AbstractClientPlugin.class.getResource("plugin.png"));
-    return icon; 
-  }
+  { return null; }
 
   public void propertyChange(PropertyChangeEvent evt) { }
   
