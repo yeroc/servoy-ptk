@@ -74,12 +74,12 @@ public abstract class AbstractScriptObject implements IScriptObject
   
   private MethodInfo lookup(String method)
   {
-    if (!annotatedMethodsRegistered) { registerMethodsFromAnnotations(); }
+    if (!annotatedMethodsRegistered) { registerAnnotatedMethods(); }
     MethodInfo m = methods.get(method);
     return m;
   }
 
-  private void registerMethodsFromAnnotations()
+  private void registerAnnotatedMethods()
   {
     MethodInfo m = null;
 
