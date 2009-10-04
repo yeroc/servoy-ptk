@@ -39,7 +39,9 @@ public abstract class AbstractScriptObject implements IScriptObject
     new HashMap<String, MethodInfo>();
   private final Set<Class<? extends IScriptObject>> types = 
     new HashSet<Class<? extends IScriptObject>>();
-
+  
+  private boolean annotatedMethodsRegistered = false;
+  
   public Class<?>[] getAllReturnedTypes()
   { return types.toArray(new Class[types.size()]); }
 
@@ -72,41 +74,32 @@ public abstract class AbstractScriptObject implements IScriptObject
   
   private MethodInfo lookup(String method)
   {
+    if (!annotatedMethodsRegistered) { registerMethodsFromAnnotations(); }
     MethodInfo m = methods.get(method);
-    if (m == null)
-    {
-      m = fromAnnotations(method);
-      // register it so future calls can just pull it out of the map...
-      if (m != null) { register(m); }
-    }
-
-//    String msg = "Returning " + m + " for " + method;
-//    if (m == null) log.error(msg, new Exception());
-//    else log.debug(msg, new Exception());
-    
     return m;
   }
 
-  private MethodInfo fromAnnotations(String name)
+  private void registerMethodsFromAnnotations()
   {
     MethodInfo m = null;
 
     for (Method mtd : getClass().getMethods()) 
     {
       if (Modifier.isPublic(mtd.getModifiers()) &&
-          mtd.getName().equals("js_" + name) &&
-          mtd.isAnnotationPresent(Export.class))
-      { 
+          mtd.isAnnotationPresent(Export.class) &&
+          mtd.getName().startsWith("js_"))
+      {
         Export exp = mtd.getAnnotation(Export.class);
-        m = method(name)
+        // the name is actually the method name without the js_ prefix...
+        m = method(mtd.getName().substring(3)) 
           .parameters(exp.parameters())
           .sample(exp.sample() == Export.NULL ? null : exp.sample())
           .tooltip(exp.tooltip() == Export.NULL ? null : exp.tooltip())
           .deprecated(mtd.isAnnotationPresent(Deprecated.class))
           .build();
-        break;
+        register(m);
       }
     }
-    return m;
+    annotatedMethodsRegistered = true;
   }
 }
