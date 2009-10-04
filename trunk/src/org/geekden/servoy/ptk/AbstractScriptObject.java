@@ -57,7 +57,7 @@ public abstract class AbstractScriptObject implements IScriptObject
   public final boolean isDeprecated(String method)
   {
     MethodInfo m = lookup(method);
-    return m != null ? lookup(method).deprecated() : false; 
+    return m != null ? m.deprecated() : false; 
   }
 
   /**
