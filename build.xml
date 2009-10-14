@@ -61,11 +61,11 @@
     <mkdir dir="${dist}"/>
     <jar destfile="${jar.file}">
       <manifest>
-        <attribute name="Build-Creator" value="${user.name}"/>
-        <attribute name="Build-Date" value="${build.current.date}"/>
-        <attribute name="Implementation-Title" value="Servoy Plugin Toolkit"/>
-        <attribute name="Implementation-Version" value="Build ${build.current.revision}"/>
-        <attribute name="Implementation-Vendor" value="Geekden.org"/>
+        <attribute name="Build-Creator"           value="${user.name}"/>
+        <attribute name="Build-Date"              value="${build.current.date}"/>
+        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Vendor"   value="Geekden.org"/>
+        <attribute name="Implementation-Version"  value="Build ${build.current.revision}"/>
       </manifest>
       <fileset dir="${build}/classes"/>
     </jar>
