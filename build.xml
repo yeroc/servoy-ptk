@@ -57,6 +57,23 @@
     </javac>
   </target>
 
+  <target name="javadoc" >
+    <delete dir="${build}/javadoc"/>
+    <mkdir dir="${build}/javadoc"/>
+    <javadoc 
+      packagenames="org.geekden.servoy.ptk"
+      destdir="${build}/javadoc"
+      use="true"
+      author="true"
+      protected="true"
+      windowtitle="Servoy Plugin Toolkit">
+      <sourcepath location="${src}"/>
+      <classpath refid="compile.path"/>
+      <link href="http://www.servoy.com/docs/public-api/41x"/>
+      <link href="http://java.sun.com/javase/6/docs/api"/>
+    </javadoc>
+  </target>
+  
   <target name="jar" depends="compile">
     <mkdir dir="${dist}"/>
     <jar destfile="${jar.file}">
