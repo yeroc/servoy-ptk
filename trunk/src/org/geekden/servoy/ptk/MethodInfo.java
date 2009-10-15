@@ -19,9 +19,12 @@
 package org.geekden.servoy.ptk;
 
 /**
+ * An internal class used to hold the information associated with a
+ * method that has been exposed by an IScriptObject class.
+ * 
  * @author Corey Puffalt
  */
-public class MethodInfo
+class MethodInfo
 {
   private final String name;
   private final String[] parameters;
