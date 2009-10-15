@@ -31,6 +31,38 @@ import org.apache.log4j.Logger;
 
 import com.servoy.j2db.scripting.IScriptObject;
 
+/**
+ * Provides an IScriptObject implementation that relies on a simple annotation
+ * to export methods.  To use, extend this class, define public method(s) with 
+ * the "js_" prefix (as required by Servoy) and annotate them with the 
+ * {@link Export} annotation.  To mark a script method as being deprecated use 
+ * the standard Java (1.5+) {@link Deprecated} annotation.
+
+ * <p>
+ * For example:
+ * <pre>
+ * public class HelloWorldScriptObject extends AbstractScriptObject
+ * {
+ *   {@literal @}Export(
+ *     parameters = { "message" },
+ *     tooltip = "Hello World",
+ *     sample = "plugins.ex.hello('World!');") 
+ *   public void js_hello(String message)
+ *   {
+ *     System.out.println("Hello " + message);
+ *   }
+ *   
+ *   // this less-sophisticated method is now deprecated...
+ *   {@literal @}Export {@literal @}Deprecated 
+ *   public void js_helloWorld()
+ *   {
+ *     System.out.println("Hello World!");
+ *   }
+ * }
+ * </pre>
+ * 
+ * @author Corey Puffalt
+ */
 public abstract class AbstractScriptObject implements IScriptObject
 {
   private static final Logger log = Logger.getLogger(AbstractScriptObject.class);
@@ -61,16 +93,16 @@ public abstract class AbstractScriptObject implements IScriptObject
   }
 
   /**
-   * Exposed to allow registering a method manually as opposed to using
-   * annotations.
-   * 
-   * @param m
-   **/
-  protected void register(MethodInfo m)
-  { methods.put(m.name(), m); }
-  
+   * Registers additional {@linkplain IScriptObject types}.  Call from the 
+   * constructor.
+   *  
+   * @param clazz the IScriptObject implementation to be exported.
+   */
   protected void register(Class<? extends IScriptObject> clazz)
   { types.add(clazz); }
+  
+  private void register(MethodInfo m)
+  { methods.put(m.name(), m); }
   
   private MethodInfo lookup(String method)
   {
