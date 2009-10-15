@@ -37,7 +37,6 @@ import com.servoy.j2db.scripting.IScriptObject;
  * the "js_" prefix (as required by Servoy) and annotate them with the 
  * {@link Export} annotation.  To mark a script method as being deprecated use 
  * the standard Java (1.5+) {@link Deprecated} annotation.
-
  * <p>
  * For example:
  * <pre>
