@@ -66,6 +66,9 @@ public abstract class AbstractScriptObject implements IScriptObject
 {
   private static final Logger log = Logger.getLogger(AbstractScriptObject.class);
   
+  /** Servoy requires that all exported methods have this prefix. */
+  private static final String methodPrefix = "js_";
+  
   private final Map<String, MethodInfo> methods = 
     new HashMap<String, MethodInfo>();
   private final Set<Class<? extends IScriptObject>> types = 
@@ -112,17 +115,15 @@ public abstract class AbstractScriptObject implements IScriptObject
 
   private void registerAnnotatedMethods()
   {
-    MethodInfo m = null;
-
     for (Method mtd : getClass().getMethods()) 
     {
       if (Modifier.isPublic(mtd.getModifiers()) &&
           mtd.isAnnotationPresent(Export.class) &&
-          mtd.getName().startsWith("js_"))
+          mtd.getName().startsWith(methodPrefix))
       {
         Export exp = mtd.getAnnotation(Export.class);
         // the name is actually the method name without the js_ prefix...
-        m = method(mtd.getName().substring(3)) 
+        MethodInfo m = method(mtd.getName().substring(methodPrefix.length())) 
           .parameters(exp.parameters())
           .sample(exp.sample() == Export.NULL ? null : exp.sample())
           .tooltip(exp.tooltip() == Export.NULL ? null : exp.tooltip())
