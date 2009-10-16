@@ -37,11 +37,27 @@ public abstract class AbstractClientPlugin extends AbstractPlugin implements ICl
     this.name = name;
   }
   
+  /**
+   * 
+   * @see com.servoy.j2db.plugins.IClientPlugin#getName()
+   **/
   public final String getName()
   { return name; }
   
+  /**
+   * An empty implementation for those plugins that don't need a reference to
+   * IClientPluginAccess.
+   * 
+   * @see com.servoy.j2db.plugins.IClientPlugin#initialize(com.servoy.j2db.plugins.IClientPluginAccess)
+   **/
   public void initialize(IClientPluginAccess context) throws PluginException { }
 
+  /**
+   * Returns null which results in Servoy rendering the plugin with a default
+   * icon in the developer GUI.  Override this method to return a custom icon.
+   * 
+   * @see com.servoy.j2db.plugins.IClientPlugin#getImage()
+   **/
   public Icon getImage()
   { return null; }
 
