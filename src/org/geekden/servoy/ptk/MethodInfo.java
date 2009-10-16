@@ -58,8 +58,7 @@ class MethodInfo
     private String tooltip = "";
     private boolean deprecated = false;
     
-    public Builder(String name) { name(name); }
-    private Builder name(String name) { this.name = name; return this; }
+    public Builder(String name) { this.name = name; }
     public Builder parameters(String... parms) { this.parameters = parms; return this; }
     public Builder sample(String sample) { this.sample = sample; return this; }
     public Builder tooltip(String tooltip) { this.tooltip = tooltip; return this; }
