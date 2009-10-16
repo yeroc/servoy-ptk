@@ -42,7 +42,7 @@
     </exec>
 
     <tstamp>
-      <format property="build.current.date" pattern="yyyy-MM-dd HH:mm:ss z" />
+      <format property="build.current.date" pattern="yyyy-MM-dd HH:mm:ss z" timezone="UTC"/>
     </tstamp>
   </target>
 
@@ -131,10 +131,10 @@
     </jar>
   </target>
   
-  <target name="dist" depends="jar, srcjar, docjar">
+  <target name="dist" depends="clean, jar, srcjar, docjar">
     <copy toDir="${distver}">
       <fileset dir="." includes="gpl.txt,lgpl.txt"/>
     </copy>
-    <zip destfile="${dist.file}" basedir="${distver}"/>
+    <zip destfile="${dist.file}" basedir="${dist}"/>
   </target>
 </project>
