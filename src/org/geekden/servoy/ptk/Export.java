@@ -23,11 +23,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that the annotated method should be exposed as a method callable
+ * from Javascript within Servoy.  When using method overloading only one of
+ * the overloaded methods should be annotated.
+ * 
+ * @author Corey Puffalt
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Export
 {
-  static final String NULL = "@^$#@$%@JAVA-ANNOTATIONS-SUCK!@#%@";
+  static final String NULL = "NULL";
   
   String[] parameters() default {};
   String sample() default NULL;
