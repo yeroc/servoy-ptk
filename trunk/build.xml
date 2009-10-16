@@ -103,10 +103,10 @@
       <manifest>
         <attribute name="Build-Creator"           value="${user.name}"/>
         <attribute name="Build-Date"              value="${build.current.date}"/>
-        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec"/>
+        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec - Source"/>
         <attribute name="Specification-Version"   value="${version}"/>
         <attribute name="Specification-Vendor"    value="Geekden.org"/>       
-        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit - Source"/>
         <attribute name="Implementation-Vendor"   value="Geekden.org"/>
         <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
       </manifest>
@@ -120,10 +120,10 @@
       <manifest>
         <attribute name="Build-Creator"           value="${user.name}"/>
         <attribute name="Build-Date"              value="${build.current.date}"/>
-        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec"/>
+        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec - Javadoc"/>
         <attribute name="Specification-Version"   value="${version}"/>
         <attribute name="Specification-Vendor"    value="Geekden.org"/>       
-        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit - Javadoc"/>
         <attribute name="Implementation-Vendor"   value="Geekden.org"/>
         <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
       </manifest>
