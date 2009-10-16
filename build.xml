@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <project name="servoy-ptk" default="jar" basedir=".">
 
-  <property name="src"      value="src"/>
-  <property name="build"    value="build"/>
-  <property name="dist"     value="dist"/>
+  <property name="version"      value="snapshot" />
+    
+  <property name="src"          value="src"/>
+  <property name="build"        value="build"/>
+  <property name="dist"         value="dist"/>
+  <property name="distver"      value="${dist}/servoy-ptk-${version}"/>
   
-  <property name="jar.file" value="${dist}/servoy-ptk.jar" />
+  <property name="jar.file"     value="${distver}/servoy-ptk.jar" />
+  <property name="srcjar.file"  value="${distver}/servoy-ptk-src.jar" />
+  <property name="docjar.file"  value="${distver}/servoy-ptk-doc.jar" />
+  <property name="dist.file"    value="${dist}/servoy-ptk-${version}.zip"/>
   
   <property environment="env"/>
   
@@ -57,7 +63,7 @@
     </javac>
   </target>
 
-  <target name="javadoc" >
+  <target name="doc" >
     <delete dir="${build}/javadoc"/>
     <mkdir dir="${build}/javadoc"/>
     <javadoc 
@@ -75,16 +81,60 @@
   </target>
   
   <target name="jar" depends="compile">
-    <mkdir dir="${dist}"/>
+    <mkdir dir="${distver}"/>
     <jar destfile="${jar.file}">
       <manifest>
         <attribute name="Build-Creator"           value="${user.name}"/>
         <attribute name="Build-Date"              value="${build.current.date}"/>
+        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec"/>
+        <attribute name="Specification-Version"   value="${version}"/>
+        <attribute name="Specification-Vendor"    value="Geekden.org"/>       
         <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
         <attribute name="Implementation-Vendor"   value="Geekden.org"/>
-        <attribute name="Implementation-Version"  value="Build ${build.current.revision}"/>
+        <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
       </manifest>
       <fileset dir="${build}/classes"/>
     </jar>
+  </target>
+  
+  <target name="srcjar">
+    <mkdir dir="${distver}"/>
+    <jar destfile="${srcjar.file}">
+      <manifest>
+        <attribute name="Build-Creator"           value="${user.name}"/>
+        <attribute name="Build-Date"              value="${build.current.date}"/>
+        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec"/>
+        <attribute name="Specification-Version"   value="${version}"/>
+        <attribute name="Specification-Vendor"    value="Geekden.org"/>       
+        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Vendor"   value="Geekden.org"/>
+        <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
+      </manifest>
+      <fileset dir="${src}"/>
+    </jar>
+  </target>
+  
+  <target name="docjar" depends="doc">
+    <mkdir dir="${distver}"/>
+    <jar destfile="${docjar.file}">
+      <manifest>
+        <attribute name="Build-Creator"           value="${user.name}"/>
+        <attribute name="Build-Date"              value="${build.current.date}"/>
+        <attribute name="Specification-Title"     value="Servoy Plugin Toolkit API Spec"/>
+        <attribute name="Specification-Version"   value="${version}"/>
+        <attribute name="Specification-Vendor"    value="Geekden.org"/>       
+        <attribute name="Implementation-Title"    value="Servoy Plugin Toolkit"/>
+        <attribute name="Implementation-Vendor"   value="Geekden.org"/>
+        <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
+      </manifest>
+      <fileset dir="${build}/javadoc"/>
+    </jar>
+  </target>
+  
+  <target name="dist" depends="jar, srcjar, docjar">
+    <copy toDir="${distver}">
+      <fileset dir="." includes="gpl.txt,lgpl.txt"/>
+    </copy>
+    <zip destfile="${dist.file}" basedir="${distver}"/>
   </target>
 </project>
