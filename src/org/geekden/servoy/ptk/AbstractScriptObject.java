@@ -125,8 +125,8 @@ public abstract class AbstractScriptObject implements IScriptObject
         // the name is actually the method name without the js_ prefix...
         MethodInfo m = method(mtd.getName().substring(methodPrefix.length())) 
           .parameters(exp.parameters())
-          .sample(exp.sample() == Export.NULL ? null : exp.sample())
-          .tooltip(exp.tooltip() == Export.NULL ? null : exp.tooltip())
+          .sample(Export.NULL.equals(exp.sample()) ? null : exp.sample())
+          .tooltip(Export.NULL.equals(exp.tooltip()) ? null : exp.tooltip())
           .deprecated(mtd.isAnnotationPresent(Deprecated.class))
           .build();
         register(m);
