@@ -18,8 +18,6 @@
  */
 package org.geekden.servoy.plugin.logger;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.geekden.servoy.ptk.AbstractClientPlugin;
 import org.geekden.servoy.ptk.AbstractScriptObject;
 import org.geekden.servoy.ptk.Export;
@@ -39,7 +37,7 @@ public class Log4jPlugin extends AbstractClientPlugin
     return provider;
   }
 
-  public class Log4jProvider extends AbstractScriptObject
+  public static class Log4jProvider extends AbstractScriptObject
   {
     public Log4jProvider()
     { register(Log.class); }
@@ -47,39 +45,8 @@ public class Log4jPlugin extends AbstractClientPlugin
     @Export(
       parameters = { "name" }, 
       tooltip = "Create a Logger",
-      sample="var log = plugins.log4j.getLogger('mylogger');")
+      sample = "var log = plugins.log4j.getLogger('mylogger');")
     public Log js_getLogger(String name)
     { return new Log(name); }
-  }
-  
-  public class Log extends AbstractScriptObject
-  {
-    private final Logger log;
-    
-    public Log(String name)
-    { log = Logger.getLogger(name); }
-    
-    @Export
-    public void js_trace(Object msg)
-    { log(Level.TRACE, msg, null); }
-
-    @Export
-    public void js_debug(Object msg)
-    { log(Level.DEBUG, msg, null); }
-    
-    @Export
-    public void js_info(Object msg)
-    { log(Level.INFO, msg, null); }
-
-    @Export
-    public void js_warn(Object msg)
-    { log(Level.WARN, msg, null); }
-    
-    @Export
-    public void js_error(Object msg)
-    { log(Level.ERROR, msg, null); }
-
-    private void log(Level l, Object msg, Throwable t)
-    { log.log(Log.class.getName(), l, msg, t); }
   }
 }
