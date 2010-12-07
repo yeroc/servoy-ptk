@@ -64,7 +64,7 @@
       <classpath refid="compile.path"/>
     </javac>
   </target>
-	
+  
   <target name="compile-examples" depends="setup, jar">
     <mkdir dir="${build}/example-classes" />
     <javac 
@@ -74,9 +74,9 @@
       target="1.5" 
       debug="on">
       <classpath refid="compile.path"/>
-    	<classpath location="${jar.file}"/>
+      <classpath location="${jar.file}"/>
     </javac>
-  </target>	
+  </target>  
 
   <target name="doc" >
     <delete dir="${build}/javadoc"/>
@@ -126,7 +126,7 @@
         <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
       </manifest>
       <fileset dir="${build}/example-classes"/>
-    	<zipfileset src="${jar.file}"/>
+      <zipfileset src="${jar.file}"/>
     </jar>
   </target>
   
