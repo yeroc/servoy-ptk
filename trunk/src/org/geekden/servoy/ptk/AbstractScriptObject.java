@@ -1,5 +1,5 @@
 /**
- * Copyright 2009 Corey Puffalt
+ * Copyright 2009-2010 Corey Puffalt
  *
  * This file is part of Servoy Plugin Toolkit.
  *
