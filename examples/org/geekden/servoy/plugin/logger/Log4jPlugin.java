@@ -45,7 +45,7 @@ public class Log4jPlugin extends AbstractClientPlugin
     @Export(
       parameters = { "name" }, 
       tooltip = "Create a Logger",
-      sample = "var log = plugins.log4j.getLogger('mylogger');")
+      sample = "var log = %%elementName%%.getLogger('mylogger');")
     public Log js_getLogger(String name)
     { return new Log(name); }
   }
