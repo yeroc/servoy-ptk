@@ -4,6 +4,7 @@
   <property name="version"          value="snapshot" />
     
   <property name="src"              value="src"/>
+  <property name="lib"              value="lib"/>
   <property name="examples"         value="examples"/>
   <property name="build"            value="build"/>
   <property name="dist"             value="dist"/>
@@ -114,7 +115,12 @@
   
   <target name="jar-examples" depends="compile-examples">
     <mkdir dir="${distver}"/>
-    <jar destfile="${example-jar.file}">
+    <!-- Use jarjar to embed the Servoy PTK under an internal package so it
+         doesn't conflict with other plugins since they all share one
+         classpath in Servoy -->
+    <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask"
+        classpath="${lib}/jarjar-1.4/jarjar.jar"/>
+    <jarjar destfile="${example-jar.file}">
       <manifest>
         <attribute name="Build-Creator"           value="${user.name}"/>
         <attribute name="Build-Date"              value="${build.current.date}"/>
@@ -126,8 +132,9 @@
         <attribute name="Implementation-Version"  value="${version} build ${build.current.revision}"/>
       </manifest>
       <fileset dir="${build}/example-classes"/>
-      <zipfileset src="${jar.file}"/>
-    </jar>
+      <zipfileset src="${jar.file}" includes="**/*.class"/>
+      <rule pattern="org.geekden.servoy.ptk.**" result="org.geekden.servoy.plugin.logger.internal.ptk.@1"/>
+    </jarjar>
   </target>
   
   <target name="srcjar">
