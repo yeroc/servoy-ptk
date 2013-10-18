@@ -27,8 +27,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 import com.servoy.j2db.scripting.IScriptObject;
 
 /**
@@ -64,8 +62,6 @@ import com.servoy.j2db.scripting.IScriptObject;
  */
 public abstract class AbstractScriptObject implements IScriptObject
 {
-  private static final Logger log = Logger.getLogger(AbstractScriptObject.class);
-  
   /** Servoy requires that all exported methods have this prefix. */
   private static final String methodPrefix = "js_";
   
