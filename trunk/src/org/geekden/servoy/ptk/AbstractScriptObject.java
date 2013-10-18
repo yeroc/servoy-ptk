@@ -45,7 +45,7 @@ import com.servoy.j2db.scripting.IScriptObject;
  *   {@literal @}Export(
  *     parameters = { "message" },
  *     tooltip = "Hello World",
- *     sample = "plugins.ex.hello('World!');") 
+ *     sample = "%%elementName%%.hello('World!');") 
  *   public void js_hello(String message)
  *   {
  *     System.out.println("Hello " + message);
