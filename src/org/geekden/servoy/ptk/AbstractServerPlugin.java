@@ -34,12 +34,16 @@ public abstract class AbstractServerPlugin extends AbstractPlugin implements ISe
   { super(displayName); }
 
   /** @deprecated No longer used according to the documentation **/
-  public PreferencePanel[] getPreferencePanels()
+  public final PreferencePanel[] getPreferencePanels()
   { return null; }
 
-  public Map<String, String> getRequiredPropertyNames()
+  public final Map<String, String> getRequiredPropertyNames()
   { return requiredProperties; }
 
-  protected void registerProperty(String prop, String description)
+  /**
+   * Call this from your constructor to register any required configuration
+   * properties.
+   */
+  protected final void registerProperty(String prop, String description)
   { requiredProperties.put(prop, description); }
 }
