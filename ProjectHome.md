@@ -1,0 +1,1 @@
+Just a few handy classes to make implementing a Servoy plugin easier.
