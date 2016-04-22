@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.servoy.j2db.scripting.IConstantsObject;
 import com.servoy.j2db.scripting.IScriptObject;
 
 /**
@@ -67,8 +68,8 @@ public abstract class AbstractScriptObject implements IScriptObject
   
   private final Map<String, MethodInfo> methods = 
     new HashMap<String, MethodInfo>();
-  private final Set<Class<? extends IScriptObject>> types = 
-    new HashSet<Class<? extends IScriptObject>>();
+  @SuppressWarnings("rawtypes")
+  private final Set<Class> types = new HashSet<Class>();
   
   private boolean annotatedMethodsRegistered = false;
   
@@ -97,6 +98,14 @@ public abstract class AbstractScriptObject implements IScriptObject
    * @param clazz the IScriptObject implementation to be exported.
    */
   protected void register(Class<? extends IScriptObject> clazz)
+  { types.add(clazz); }
+  
+  /**
+   * Registers {@linkplain IConstantsObject constants}.  Call from the constructor.
+   *  
+   * @param clazz the IConstantsObject implementation to be exported.
+   */
+  protected void registerConstants(Class<? extends IConstantsObject> clazz)
   { types.add(clazz); }
   
   private void register(MethodInfo m)
